@@ -93,11 +93,13 @@ class State(object):
         return child_states
 
 class Visual_node(pygame.sprite.Sprite):
-    def __init__(self, x, y, value):
+    def __init__(self, x, y, value, img_name=None):
         super(Visual_node, self).__init__()
-        self.surf = pygame.Surface((25, 25))
-        self.surf.fill((255, 255, 255))
-        
+        self.surf = pygame.Surface((24, 24))
+        if img_name == None:
+            self.surf.fill((255, 255, 255))
+        else:
+            self.surf = pygame.image.load(img_name).convert()
         self.value = value
         self.next_states = State(value).generate_next_state()
         self.x = x
@@ -112,16 +114,16 @@ class Visual_node(pygame.sprite.Sprite):
 pygame.init()
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
-node0 = Visual_node(400, 10, "0")
-node1 = Visual_node(300, 70, "1")
-node2 = Visual_node(500, 70, "2")
-node3 = Visual_node(200, 150, "3")
-node4 = Visual_node(600, 150, "4")
-node5 = Visual_node(410, 150, "5")
-node6 = Visual_node(120, 260, "6")
-node7 = Visual_node(340, 255, "7")
-node8 = Visual_node(550, 265, "8")
-node9 = Visual_node(690, 260, "9")
+node0 = Visual_node(400, 10, "0", "0.png")
+node1 = Visual_node(300, 70, "1", "1.png")
+node2 = Visual_node(500, 70, "2", "2.png")
+node3 = Visual_node(200, 150, "3","3.png")
+node4 = Visual_node(600, 150, "4", "4.png")
+node5 = Visual_node(410, 150, "5", "5.png")
+node6 = Visual_node(120, 260, "6", "6.png")
+node7 = Visual_node(340, 255, "7", "7.png")
+node8 = Visual_node(550, 265, "8", "8.png")
+node9 = Visual_node(690, 260, "9", "9.png")
 node10 = Visual_node(50, 350, "10")
 node11 = Visual_node(200, 350, "11")
 node12 = Visual_node(450, 355, "12")
@@ -379,7 +381,7 @@ class Visual_graph(pygame.sprite.Sprite):
     def __init__(self, st_node, end_node):
         super(Visual_graph, self).__init__()
         self.surf = pygame.Surface((SCREEN_WIDTH, SCREEN_HEIGHT))
-        self.surf.fill((10, 10, 10))
+        self.surf.fill((255, 0, 0))
         self.st = int(st_node)
         self.en = int(end_node)
         self.explored = Graph().BFS(st_node, end_node)
